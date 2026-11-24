@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EREEC74 | Binary Intro</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #030609;
+  color: white;
+  font-family: Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  gap: 9px;
+  margin-bottom: 35px;
+}
+
+.digit {
+  display: grid;
+  grid-template-columns: repeat(5,  minmax(8px, 15px));
+  gap: 4px;
+}
+
+.bit {
+  opacity: 0;
+  font-family: monospace;
+  font-size: clamp(12px, 4vw, 19px);
+  font-weight: bold;
+  transform: scale(0.3);
+  animation: appear 0.35s forwards;
+  text-shadow: 0 0 10px currentColor;
+}
+
+.zero {
+  color: #00E5FF;
+}
+
+.one {
+  color: #073B8C;
+}
+
+@keyframes appear {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.title {
+  opacity: 0;
+  transform: translateY(12px);
+  font-size: clamp(19px, 5vw, 27px);
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: #fff;
+  text-shadow: 0 0 12px #00bfff;
+  transition: 0.8s ease;
+}
+
+.title.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.subtitle {
+  margin-top: 12px;
+  color: #00E5FF;
+  font-size: 10px;
+  letter-spacing: 4px;
+}
+
+.loading {
+  width: 190px;
+  height: 3px;
+  background: #14202a;
+  margin: 35px auto 12px;
+  overflow: hidden;
+}
+
+.progress {
+  width: 0;
+  height: 100%;
+  background: #00E5FF;
+  box-shadow: 0 0 12px #00E5FF;
+  transition: width 3.5s linear;
+}
+
+.status {
+  color: #647785;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <div class="logo" id="logo"></div>
+
+  <div class="title" id="title">
+    HACKED BY EREEC74
+  </div>
+
+  <div class="subtitle">BINARY IDENTITY SYSTEM</div>
+
+  <div class="loading">
+    <div class="progress" id="progress"></div>
+  </div>
+
+  <div class="status" id="status">INITIALIZING...</div>
+
+</div>
+
+<script>
+const shapes = [
+  [
+    "01110",
+    "10001",
+    "10001",
+    "10001",
+    "10001",
+    "10001",
+    "01110"
+  ],
+  [
+    "11111",
+    "00001",
+    "00010",
+    "00100",
+    "01000",
+    "01000",
+    "01000"
+  ],
+  [
+    "10010",
+    "10010",
+    "10010",
+    "11111",
+    "00010",
+    "00010",
+    "00010"
+  ]
+];
+
+const logo = document.getElementById("logo");
+let delay = 0;
+
+shapes.forEach((shape, digitIndex) => {
+  const digit = document.createElement("div");
+  digit.className = "digit";
+
+  shape.forEach((line, row) => {
+    [...line].forEach((cell, col) => {
+      if (cell === "1") {
+        const bit = document.createElement("span");
+
+        const value = (row + col + digitIndex) % 2;
+        bit.textContent = value ? "1" : "0";
+        bit.className = "bit " + (value ? "one" : "zero");
+
+        bit.style.animationDelay = delay + "s";
+        delay += 0.035;
+
+        digit.appendChild(bit);
+      }
+    });
+  });
+
+  logo.appendChild(digit);
+});
+
+document.getElementById("progress").style.width = "100%";
+
+setTimeout(() => {
+  document.getElementById("status").textContent =
+    "BINARY 074 COMPLETE";
+}, 3700);
+
+setTimeout(() => {
+  document.getElementById("title").classList.add("show");
+  document.getElementById("status").textContent =
+    "IDENTITY VERIFIED";
+}, 4000);
+</script>
+
+</body>
+</html>
